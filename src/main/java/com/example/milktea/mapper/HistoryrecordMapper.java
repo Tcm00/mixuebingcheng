@@ -25,4 +25,6 @@ public interface HistoryrecordMapper extends BaseMapper<Historyrecord> {
     List<HistoryVO> getHistory(Integer userId, Integer status);
 
     String selectUrl(String goodsId);
+
+    List<HistoryVO> getHistoryNum(Integer userId);
 }

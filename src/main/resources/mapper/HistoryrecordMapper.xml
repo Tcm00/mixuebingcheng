@@ -70,4 +70,13 @@
         select goodsUrl from goodsPic where goodsId = #{goodsId} limit 1
     </select>
 
+    <select id="getHistoryNum" resultMap="getOrder">
+        SELECT his.recordId,shop.shopName as shopName,shop.address as shopAddress,his.goodsId as goodsId,his.userId,his.type,his.orderId,his.`status`,his.createTime
+        FROM `historyRecord` his,shopinfo shop
+        WHERE his.shopId = shop.id
+          AND his.userId = #{userId}
+        GROUP BY orderId
+        ORDER BY orderId DESC
+    </select>
+
 </mapper>

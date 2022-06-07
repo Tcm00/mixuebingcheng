@@ -59,6 +59,7 @@ public class HistoryrecordController {
 //                "goodsId":2,
 //                "num":2
 //    }]
+
     @ApiOperation(value = "提交商品订单",response = Historyrecord.class)
     @RequestMapping("/orderTea")
     public ResultBody orderTea(@RequestBody @ApiParam List<Historyrecord> historyrecords){
@@ -67,12 +68,16 @@ public class HistoryrecordController {
     }
 
     @ApiOperation(value = "查询历史订单记录",response = HistoryVO.class)
-    @ApiImplicitParam(name = "status",value = "订单状态(0:未使用 ; 1:已使用)",example = "0")
+    @ApiImplicitParam(name = "status",value = "订单状态(0:未使用 ; 1:已使用 ;2:查积分记录)",example = "0")
     @RequestMapping("/getHistory")
     public ResultBody getHistory(@RequestParam(defaultValue = "1") @NotEmpty Integer pageNumber,
                                  @RequestParam(defaultValue = "10") @NotEmpty Integer size,
                                  @RequestParam int status){
         Userinfo userinfo = LocalUser.USER.get();
+        System.out.println(userinfo);
+        if (status==2){
+            return historyrecordService.getHistoryNum(pageNumber,size,userinfo.getId());
+        }
         return historyrecordService.getHistory(pageNumber,size,userinfo.getId(),status);
     }
 

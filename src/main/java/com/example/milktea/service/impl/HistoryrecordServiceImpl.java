@@ -2,6 +2,7 @@ package com.example.milktea.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.metadata.PageList;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.milktea.mapper.GoodsinfoMapper;
 import com.example.milktea.mapper.UserinfoMapper;
@@ -153,6 +154,23 @@ public class HistoryrecordServiceImpl extends ServiceImpl<HistoryrecordMapper, H
         return ResultBody.ok().data("recharge",historyrecordPage);
     }
 
+    @Override
+    public ResultBody getHistoryNum(Integer pageNumber, Integer size, Integer userId) {
+        List<HistoryVO> history = baseMapper.getHistoryNum(userId);
+        for (HistoryVO historyVO : history) {
+            List<GoodsVO> goodsinfos = historyVO.getGoodsinfos();
+            Double orderSum = 0.00;
+            for (GoodsVO goodsinfo : goodsinfos) {
+                orderSum = orderSum + goodsinfo.getSum();
+                String url = baseMapper.selectUrl(goodsinfo.getGoodsId());
+                goodsinfo.setGoodsUrl(url);
+            }
+            historyVO.setOrderSum(orderSum);
+        }
+        Page pages = getPages(pageNumber, size, history);
+        return ResultBody.ok().data("history",pages).message("查询历史订单成功");
+    }
+
     /** 订单号生成(NEW) **/
     private static final AtomicInteger SEQ = new AtomicInteger(1000);
     private static final DateTimeFormatter DF_FMT_PREFIX = DateTimeFormatter.ofPattern("yyMMddHHmmssSS");
@@ -187,9 +205,9 @@ public class HistoryrecordServiceImpl extends ServiceImpl<HistoryrecordMapper, H
             // 求出最大页数，防止currentPage越界
             int maxPage = size % pageSize == 0 ? size / pageSize : size / pageSize + 1;
 
-            if(currentPage > maxPage) {
-                currentPage = maxPage;
-            }
+//            if(currentPage > maxPage) {
+//                currentPage = maxPage;
+//            }
         }
         // 当前页第一条数据的下标
         int curIdx = currentPage > 1 ? (currentPage - 1) * pageSize : 0;

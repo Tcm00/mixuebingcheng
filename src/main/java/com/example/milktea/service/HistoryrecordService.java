@@ -29,4 +29,6 @@ public interface HistoryrecordService extends IService<Historyrecord> {
 
 
     ResultBody recharge(Page<Historyrecord> page,int userId);
+
+    ResultBody getHistoryNum(Integer pageNumber, Integer size, Integer id);
 }

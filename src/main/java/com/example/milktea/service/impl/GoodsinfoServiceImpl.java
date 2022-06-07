@@ -27,4 +27,6 @@ public class GoodsinfoServiceImpl extends ServiceImpl<GoodsinfoMapper, Goodsinfo
         List<GoodsInfoVO> menu = baseMapper.getMenu();
         return ResultBody.ok().data("menu",menu);
     }
+
+
 }
