@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.milktea.mapper.HistoryrecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.milktea.pojo.Historyrecord">
+        <id column="recordId" property="recordId" />
+        <result column="money" property="money" />
+        <result column="type" property="type" />
+        <result column="orderId" property="orderid" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="deleteTime" property="deleteTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        recordId, money, type, orderId, createTime, updateTime, deleteTime
+    </sql>
+
+    <resultMap id="getOrder" type="com.example.milktea.pojo.VO.HistoryVO">
+        <id column="recordId" property="recordId" />
+
+        <result column="shopName" property="shopName" />
+        <result column="shopAddress" property="shopAddress" />
+        <result column="goodsId" property="goodsId" />
+
+        <result column="userId" property="userId" />
+        <result column="details" property="details" />
+        <result column="money" property="money" />
+        <result column="num" property="num" />
+        <result column="orderSum" property="orderSum" />
+        <result column="orderId" property="orderid" />
+        <result column="status" property="status" />
+
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="deleteTime" property="deleteTime" />
+        <collection property="goodsinfos" column="orderId" ofType="com.example.milktea.pojo.VO.GoodsVO" select="getgoods">
+            <result column="goodsId" property="goodsId"/>
+            <result column="goodsName" property="goodsName"/>
+            <result column="details" property="details"/>
+            <result column="goodsUrl" property="goodsUrl"/>
+            <result column="goodsPrice" property="goodsPrice"/>
+            <result column="num" property="num"/>
+            <result column="sum" property="sum"/>
+            <result column="orderId" property="orderId"/>
+        </collection>
+    </resultMap>
+
+    <select id="getgoods" resultType="com.example.milktea.pojo.VO.GoodsVO">
+        SELECT goods.Id as goodsId,goods.goodsName as goodsName,his.details as details,
+               (select pic.goodsUrl from goodsPic pic where pic.goodsId = #{goodsId} limit 1 ) as goodsUrl,
+              goods.goodsPrice as goodsPrice,his.num as num,(goodsPrice*num) as sum,his.orderId as orderId,his.status as status
+        FROM goodsinfo goods,historyRecord his
+        WHERE  his.goodsId = goods.id
+          AND his.orderId = #{orderId}
+    </select>
+
+    <select id="getHistory" resultMap="getOrder">
+        SELECT his.recordId,shop.shopName as shopName,shop.address as shopAddress,his.goodsId as goodsId,his.userId,his.type,his.orderId,his.`status`,his.createTime
+        FROM `historyRecord` his,shopinfo shop
+        WHERE his.shopId = shop.id
+        AND his.userId = #{userId} AND his.status = #{status} and his.type = 2
+        GROUP BY orderId
+        ORDER BY orderId DESC
+    </select>
+
+    <select id="selectUrl" resultType="java.lang.String">
+        select goodsUrl from goodsPic where goodsId = #{goodsId} limit 1
+    </select>
+
+</mapper>

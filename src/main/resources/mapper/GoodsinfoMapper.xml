@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.milktea.mapper.GoodsinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.milktea.pojo.Goodsinfo">
+        <id column="id" property="id" />
+        <result column="goodsName" property="goodsname" />
+        <result column="goodsPrice" property="goodsprice" typeHandler="com.example.milktea.utils.TypeHander"/>
+        <result column="describe" property="describe" />
+        <result column="attributebId" property="attributebid" />
+        <result column="attributecId" property="attributecid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, goodsName, goodsPrice, describe, attributebId, attributecId
+    </sql>
+
+    <resultMap id="goods" type="com.example.milktea.pojo.VO.GoodsInfoVO">
+        <id column="id" property="id" />
+        <result column="goodsName" property="goodsname" />
+        <result column="goodsPrice" property="goodsprice" typeHandler="com.example.milktea.utils.TypeHander"/>
+        <result column="describe" property="describe" />
+        <result column="classInfo" property="classInfo"/>
+        <result column="shopId" property="shopId"/>
+        <result column="shopname" property="shopname"/>
+        <result column="address" property="address"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="deleteTime" property="deleteTime"/>
+        <collection property="url" column="id" ofType="String" select="getUrl"/>
+        <collection property="typea" column="id" ofType="String" select="getA"/>
+        <collection property="typeb" column="id" ofType="String" select="getB"/>
+        <collection property="typec" column="id" ofType="String" select="getC"/>
+    </resultMap>
+    <select id="getUrl" resultType="String">
+        SELECT goodsUrl  FROM `goodsPic` WHERE goodsId = #{id}
+    </select>
+
+    <select id="getA" resultType="String">
+        SELECT `add` as typea FROM `attributea` WHERE goodsId = #{id}
+    </select>
+
+    <select id="getB" resultType="String">
+        SELECT type as typeb FROM `attributeb` WHERE goodsId = #{id}
+    </select>
+
+    <select id="getC" resultType="String">
+        SELECT type as typec FROM `attributec` WHERE goodsId = #{id}
+    </select>
+
+    <select id="getMenu" resultMap="goods">
+        SELECT g.*,info.classInfo,shop.id as shopId,shop.shopName,shop.address FROM goodsinfo g,classInfo info,shopinfo shop
+        WHERE g.classId = info.id
+          AND shop.id = 1
+        ORDER BY classId
+    </select>
+
+</mapper>
