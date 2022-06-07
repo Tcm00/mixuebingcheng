@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.milktea.mapper.ShopinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.milktea.pojo.Shopinfo">
+        <id column="id" property="id" />
+        <result column="shopName" property="shopname" />
+        <result column="address" property="address" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, shopName, address
+    </sql>
+
+    <resultMap id="getShop" type="com.example.milktea.pojo.VO.ShopInfoVO">
+        <id property="id" column="id"/>
+        <id property="shopname" column="shopname"/>
+        <id property="address" column="address"/>
+        <collection property="shopswipes" column="id"  select="getUrl"></collection>
+    </resultMap>
+
+    <select id="getUrl" resultType="com.example.milktea.pojo.Shopswipe">
+        SELECT * FROM `shopswipe` WHERE shopId = #{id}
+    </select>
+
+    <select id="getShopInfo" resultMap="getShop">
+        SELECT * FROM `shopinfo` WHERE id = #{parseInt}
+    </select>
+
+
+</mapper>

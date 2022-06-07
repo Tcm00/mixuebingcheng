@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.milktea.mapper.UserinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.milktea.pojo.Userinfo">
+        <id column="id" property="id" />
+        <result column="phone" property="phone" />
+        <result column="sex" property="sex" />
+        <result column="birthday" property="birthday" />
+        <result column="noun" property="noun" />
+        <result column="createTime" property="createtime" />
+        <result column="updeteTime" property="updetetime" />
+        <result column="deleteTime" property="deletetime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, phone, sex, birthday, noun, createTime, updeteTime, deleteTime
+    </sql>
+
+</mapper>
