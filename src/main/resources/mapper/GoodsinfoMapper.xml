@@ -16,6 +16,9 @@
     <sql id="Base_Column_List">
         id, goodsName, goodsPrice, describe, attributebId, attributecId
     </sql>
+    <update id="updateByIda">
+        UPDATE goodsinfo SET deleteTime = #{deleteTime} WHERE id = #{goodsId}
+    </update>
 
     <resultMap id="goods" type="com.example.milktea.pojo.VO.GoodsInfoVO">
         <id column="id" property="id" />
@@ -53,7 +56,7 @@
     <select id="getMenu" resultMap="goods">
         SELECT g.*,info.classInfo,shop.id as shopId,shop.shopName,shop.address FROM goodsinfo g,classInfo info,shopinfo shop
         WHERE g.classId = info.id
-          AND shop.id = 1
+          AND shop.id = 1 and g.deleteTime is null
         ORDER BY classId
     </select>
 

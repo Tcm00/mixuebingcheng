@@ -49,6 +49,8 @@ public class Goodsinfo extends Model<Goodsinfo> {
 
     private int classId;
 
+    private int shopId;
+
 //    @ApiModelProperty(name = "typea",value = "加料")
 //    private String typea;
 //

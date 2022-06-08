@@ -55,7 +55,7 @@ public class GoodspicServiceImpl extends ServiceImpl<GoodspicMapper, Goodspic> i
         try {
             //写入
             file.transferTo(dest);
-            Goodspic goodspic = new Goodspic(0, goodsId, "http://facetocode.xyz:9091/goodspic/show?picName=" + fileName);
+            Goodspic goodspic = new Goodspic(0, goodsId, "http://42.192.224.189:9091/goodspic/show?picName=" + fileName);
             baseMapper.insert(goodspic);
         } catch (IOException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

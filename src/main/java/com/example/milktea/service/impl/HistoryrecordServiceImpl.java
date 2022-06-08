@@ -171,6 +171,15 @@ public class HistoryrecordServiceImpl extends ServiceImpl<HistoryrecordMapper, H
         return ResultBody.ok().data("history",pages).message("查询历史订单成功");
     }
 
+    @Override
+    public ResultBody updateStatus(String orderId) {
+        int i = baseMapper.updateStatus(orderId);
+        if (i==0){
+            return ResultBody.error().message("核验卷码失败");
+        }
+        return ResultBody.ok().message("核销成功");
+    }
+
     /** 订单号生成(NEW) **/
     private static final AtomicInteger SEQ = new AtomicInteger(1000);
     private static final DateTimeFormatter DF_FMT_PREFIX = DateTimeFormatter.ofPattern("yyMMddHHmmssSS");

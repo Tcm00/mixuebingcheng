@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.milktea.mapper.ClassinfoMapper">
+
+    <insert id="addTypeA">
+        INSERT INTO attributea(goodsId,`add`) VALUES (#{goodsId},"超大杯"),(#{goodsId},"大杯"),(#{goodsId},"中杯")
+    </insert>
+    <insert id="addTypeB">
+        INSERT INTO attributeb(goodsId,`type`) VALUES (#{goodsId},"冰"),(#{goodsId},"常温"),(#{goodsId},"热")
+    </insert>
+    <insert id="addTypeC">
+        INSERT INTO attributec(goodsId,`type`) VALUES (#{goodsId},"零糖"),(#{goodsId},"半糖"),(#{goodsId},"全糖")
+    </insert>
+</mapper>

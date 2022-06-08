@@ -1,6 +1,8 @@
 package com.example.milktea;
 
 import com.example.milktea.pojo.Attributea;
+import com.example.milktea.pojo.entity.ResultBody;
+import com.example.milktea.service.HistoryrecordService;
 import com.example.milktea.service.SwipeService;
 import com.example.milktea.utils.MobileUtil;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,13 @@ class MilkTeaApplicationTests {
     @Test
     void upload(){
         Attributea attributea = new Attributea();
+    }
 
+    @Autowired
+    private HistoryrecordService historyrecordService;
+
+    @Test
+    void updateStatus(){
+        ResultBody resultBody = historyrecordService.updateStatus("220608123201811000");
     }
 }

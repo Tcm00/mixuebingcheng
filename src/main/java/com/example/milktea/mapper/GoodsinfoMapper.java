@@ -7,6 +7,7 @@ import com.example.milktea.pojo.VO.GoodsInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,4 +23,6 @@ import java.util.List;
 public interface GoodsinfoMapper extends BaseMapper<Goodsinfo> {
 
     List<GoodsInfoVO> getMenu();
+
+    void updateByIda(Date deleteTime, int goodsId);
 }

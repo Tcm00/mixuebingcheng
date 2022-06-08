@@ -3,8 +3,9 @@ package com.example.milktea.pojo.VO;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.example.milktea.pojo.Goodsinfo;
+import com.example.milktea.utils.CustomerDoubleSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +49,7 @@ public class HistoryVO {
     private Integer num;
 
     @ApiModelProperty(name = "orderSum",value = "该订单总价格")
+    @JsonSerialize(using = CustomerDoubleSerialize.class)
     private Double orderSum;
 
     @ApiModelProperty(name = "type",value = "订单类型（1;充值 ; 2:消费）")

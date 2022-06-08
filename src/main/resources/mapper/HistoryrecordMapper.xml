@@ -17,6 +17,9 @@
     <sql id="Base_Column_List">
         recordId, money, type, orderId, createTime, updateTime, deleteTime
     </sql>
+    <update id="updateStatus">
+        UPDATE historyRecord SET `status` = 1 WHERE orderId = #{orderId}
+    </update>
 
     <resultMap id="getOrder" type="com.example.milktea.pojo.VO.HistoryVO">
         <id column="recordId" property="recordId" />

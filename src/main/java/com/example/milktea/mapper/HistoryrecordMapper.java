@@ -27,4 +27,6 @@ public interface HistoryrecordMapper extends BaseMapper<Historyrecord> {
     String selectUrl(String goodsId);
 
     List<HistoryVO> getHistoryNum(Integer userId);
+
+    int updateStatus(String orderId);
 }

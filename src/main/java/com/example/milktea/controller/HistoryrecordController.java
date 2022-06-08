@@ -94,5 +94,12 @@ public class HistoryrecordController {
         Page<Historyrecord> page = new Page<>(pageNumber, size);
         return historyrecordService.recharge(page,userId);
     }
+
+    @ApiOperation(value = "修改订单状态")
+    @ApiImplicitParam(name = "userId",value = "订单编号",example = "220608123201811000")
+    @RequestMapping("/updateStatus")
+    public ResultBody updateStatus(@RequestParam String orderId){
+        return historyrecordService.updateStatus(orderId);
+    }
 }
 

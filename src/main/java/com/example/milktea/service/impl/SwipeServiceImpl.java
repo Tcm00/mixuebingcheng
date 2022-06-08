@@ -52,7 +52,7 @@ public class SwipeServiceImpl extends ServiceImpl<SwipeMapper, Swipe> implements
         try {
             //写入
             file.transferTo(dest);
-            Swipe swipe = new Swipe(0,"http://facetocode.xyz:9091/swipe/swipe?picName="+fileName);
+            Swipe swipe = new Swipe(0,"http://42.192.224.189:9091/swipe/swipe?picName="+fileName);
             baseMapper.insert(swipe);
         } catch (IOException e) {
             e.printStackTrace();

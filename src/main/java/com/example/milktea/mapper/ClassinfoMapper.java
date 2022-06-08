@@ -17,4 +17,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClassinfoMapper extends BaseMapper<Classinfo> {
 
+    int addTypeA(int goodsId);
+
+    int addTypeB(Integer goodsId);
+
+    int addTypeC(Integer goodsId);
 }
