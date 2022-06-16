@@ -53,6 +53,7 @@ public class JWTUtil {
         String id = verify.getClaim("id").asString();
         String phone = verify.getClaim("phone").asString();
         String birthday = verify.getClaim("birthday").asString();
+        String isUser = verify.getClaim("isUser").asString();
 
         userinfo.setId(Integer.parseInt(id));
         userinfo.setPhone(phone);

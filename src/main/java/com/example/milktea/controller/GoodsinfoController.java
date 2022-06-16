@@ -38,10 +38,8 @@ public class GoodsinfoController {
 
     @ApiOperation(value = "查询所有商品",response =GoodsInfoVO.class)
     @RequestMapping("/getGoodsInfo")
-    public ResultBody getGoodsInfo(@RequestParam(defaultValue = "1") @NotEmpty Long pageNumber,
-                                   @RequestParam(defaultValue = "10") @NotEmpty Long size ){
-        Page<GoodsInfoVO> Page = new Page<>(pageNumber, size);
-        return goodsinfoService.getMenu(Page);
+    public ResultBody getGoodsInfo(){
+        return goodsinfoService.getMenu();
     }
 
 
@@ -65,6 +63,5 @@ public class GoodsinfoController {
     public ResultBody deleteGoods(@RequestParam int goodsId){
         return goodsinfoService.deleteGoods(goodsId);
     }
-
 }
 

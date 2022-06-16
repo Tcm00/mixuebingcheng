@@ -33,7 +33,7 @@ public class GoodsinfoServiceImpl extends ServiceImpl<GoodsinfoMapper, Goodsinfo
     private ClassinfoMapper classinfoMapper;
 
     @Override
-    public ResultBody getMenu(Page<GoodsInfoVO> page) {
+    public ResultBody getMenu() {
         List<GoodsInfoVO> menu = baseMapper.getMenu();
         return ResultBody.ok().data("menu",menu);
     }

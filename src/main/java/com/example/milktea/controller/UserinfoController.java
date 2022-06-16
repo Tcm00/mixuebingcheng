@@ -9,9 +9,7 @@ import com.example.milktea.pojo.entity.ResultBody;
 import com.example.milktea.service.UserinfoService;
 import com.example.milktea.utils.JWTUtil;
 import com.example.milktea.utils.LocalUser;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +45,9 @@ public class UserinfoController {
     }
 
     @ApiOperation(value = "用户登录")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "isUser [0:管理员，1：用户]  新注册用户默认为普通用户")
+    })
     @RequestMapping("/login")
     public ResultBody login(@RequestParam String phone,@RequestParam String password){
         return userinfoService.getUser(phone,password);
@@ -85,6 +86,9 @@ public class UserinfoController {
     @ApiOperation(value = "解析基本信息")
     @RequestMapping("/explain")
     public ResultBody test(HttpServletRequest request) {
+        synchronized (this){
+            System.out.println("aa");
+        }
         HashMap<String, Object> map = new HashMap<>();
         //token=xx.xx.xx的头信息
         String token = request.getHeader("token");
@@ -94,11 +98,13 @@ public class UserinfoController {
         String phone = verify.getClaim("phone").asString();
         String sex = verify.getClaim("sex").asString();
         String birthday = verify.getClaim("birthday").asString();
+        String isUser = verify.getClaim("isUser").asString();
 
         map.put("userId",userId);
         map.put("phone",phone);
         map.put("sex",sex);
         map.put("birthday",birthday);
+        map.put("isUser",isUser);
 
         return ResultBody.ok().data("info",map);
     }

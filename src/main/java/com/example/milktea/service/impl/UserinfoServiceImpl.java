@@ -45,6 +45,7 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
         if (!br){
             return ResultBody.error().message("注册失败：请输入正确的手机号");
         }
+        userinfo.setIsUser(1);
         int insert = baseMapper.insert(userinfo);
         if (insert>0){
             return ResultBody.ok().message("注册成功");
@@ -67,6 +68,7 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
                     payload.put("phone",phone);
                     payload.put("sex", userinfo.getSex());
                     payload.put("birthday", userinfo.getBirthday());
+                    payload.put("isUser",String.valueOf(userinfo.getIsUser()));
                     //生成JWT令牌
                     String token = JWTUtil.getToken(payload);
                     map.put("state",true);

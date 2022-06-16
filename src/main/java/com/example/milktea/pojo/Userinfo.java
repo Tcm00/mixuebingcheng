@@ -57,6 +57,9 @@ public class Userinfo extends Model<Userinfo> {
     @JsonSerialize(using = CustomerDoubleSerialize.class)
     private Double balance;
 
+    @ApiModelProperty(name = "isUser",value = "权限  0：管理员 ； 1：普通用户")
+    private int isUser;
+
     @TableField(value = "createTime",fill = FieldFill.INSERT)
     private Date createTime;
 
