@@ -17,7 +17,7 @@ import com.example.milktea.pojo.entity.ResultBody;
  */
 public interface GoodsinfoService extends IService<Goodsinfo> {
 
-    ResultBody getMenu(Page<GoodsInfoVO> page);
+    ResultBody getMenu();
 
     ResultBody addGoods(GoodsInfoDO goodsInfoDO);
 
