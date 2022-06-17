@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.jupiter.api.Test;
 
@@ -26,9 +27,11 @@ public class CodeGenerator {
         //1.全局配置
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setActiveRecord(true) //是否支持AR模式
-                .setAuthor("SixFeet Under") //作者
+                .setAuthor("小明晚安了") //作者
                 .setOutputDir("E:\\APoject\\milkTea\\src\\main\\java") //生成路径
                 .setIdType(IdType.AUTO) //主键策略
+                .setDateType(DateType.ONLY_DATE)//定义生成的实体类中日期类型
+                .setSwagger2(true) //开启Swagger2模式
                 .setServiceName("%sService") //设置生成的service接口的名字的手字母是否为I
                 .setBaseResultMap(true) //外部命名引用
                 .setBaseColumnList(true) //生成SQL 片段
@@ -57,6 +60,7 @@ public class CodeGenerator {
 
         //5.整合配置
         AutoGenerator autoGenerator = new AutoGenerator();
+        autoGenerator.setGlobalConfig(globalConfig);
         autoGenerator.setGlobalConfig(globalConfig)
                 .setDataSource(dataSourceConfig)
                 .setStrategy(config)
